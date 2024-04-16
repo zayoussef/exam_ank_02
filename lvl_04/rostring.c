@@ -1,55 +1,41 @@
-
 #include <unistd.h>
 
-int main(int argc, char **argv)
+int main(int ac, char **av)
 {
-    int i = 0;
-    int j = 0;
-    int space = 0;
-
-    if (argc > 1 && argv[1][0])
+    if (ac > 1)
     {
-        // Skip the leading spaces
-        while (argv[1][i] == ' ' || argv[1][i] == '\t')
+        int i = 0;
+        int j = 0;
+        int space = 0;
+
+        while (av[1][i] && av[1][i] <= 32)
             i++;
-        // Save the index of the first word
         j = i;
-        // Find the end of the first word
-        while (argv[1][i] && argv[1][i] != ' ' && argv[1][i] != '\t')
+        while (av[1][i] && av[1][i] > 32)
             i++;
-        // Skip the spaces after the first word
-        while (argv[1][i] == ' ' || argv[1][i] == '\t')
+        while (av[1][i] && av[1][i] <= 32)
             i++;
-        // Print the rest of the string, replacing multiple spaces with one
-        while (argv[1][i])
+        int spa = av[1][i];
+        while (av[1][i])
         {
-            if (argv[1][i] != ' ' && argv[1][i] != '\t')
+            if (av[1][i] > 32)
             {
-                // If the previous character was a space, print one space
                 if (space)
-                    write(1, " ", 1);
-                // Print the current character
-                write(1, &argv[1][i], 1);
-                // Reset the space flag
+                    write (1, " ", 1);
+                write (1, &av[1][i], 1);
                 space = 0;
             }
             else
-            {
-                // Set the space flag
                 space = 1;
-            }
             i++;
         }
-        // Print a space before the first word
-        write(1, " ", 1);
-        // Print the first word
-        while (argv[1][j] && argv[1][j] != ' ' && argv[1][j] != '\t')
+        if (spa)
+            write (1, " ", 1);
+        while (av[1][j] && av[1][j] > 32)
         {
-            write(1, &argv[1][j], 1);
+            write (1, &av[1][j], 1);
             j++;
         }
     }
-    // Print a newline
-    write(1, "\n", 1);
-    return (0);
+    write (1, "\n", 1);
 }
