@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(int ac, char **av)
 {
@@ -13,11 +13,11 @@ int main(int ac, char **av)
         {
             if (nbr % i == 0)
             {
-                printf ("%d", i);
-                nbr = nbr / i;
+                printf("%d", i);
+                nbr /= i;
                 if (nbr == 1)
                     break;
-                printf ("*");
+                printf("*");
             }
             else
                 i++;
